@@ -45,20 +45,20 @@ public class Hero {
     public int getConstitution(){ return this.constitution; }
     public int getIntelligence(){ return this.intelligence; }
     public int getWisdom(){ return this.wisdom; }
-    public int getCharisma() { return this.charisma }
+    public int getCharisma() { return this.charisma; }
     public int getRace(){ return this.race; }
     public int getOccupationClass(){ return this.occupationClass; }
     public String getStats(){
-        private int[] raceArray = {"Dwarf", "Elf", "Human"};
-        private int[] occupationArray = {"Wizard", "Rogue", "Fighter"};
-        private String stats="Character Stats\n";
-                + "Strength: " + this.strength + "\n";
-                + "Dexterity: " + this.dexterity + "\n";
-                + "Constitution: " + this.constitution + "\n";
-                + "Intelligence: " + this.intelligence + "\n";
-                + "Wisdom: " + this.wisdom + "\n";
-                + "Charisma: " + this.charisma + "\n";
-                + "Race: " + raceArray[this.strength] + "\n";
+        String[] raceArray = {"Dwarf", "Elf", "Human"};
+        String[] occupationArray = {"Wizard", "Rogue", "Fighter"};
+        String stats="Character Stats\n"
+                + "Strength: " + this.strength + "\n"
+                + "Dexterity: " + this.dexterity + "\n"
+                + "Constitution: " + this.constitution + "\n"
+                + "Intelligence: " + this.intelligence + "\n"
+                + "Wisdom: " + this.wisdom + "\n"
+                + "Charisma: " + this.charisma + "\n"
+                + "Race: " + raceArray[this.strength] + "\n"
                 + "Class: " + occupationArray[this.occupationClass] + "\n";
         return stats;
     }
