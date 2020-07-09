@@ -49,8 +49,8 @@ public class Hero {
     public int getRace(){ return this.race; }
     public int getOccupationClass(){ return this.occupationClass; }
     public String getStats(){
-        private int[] raceArray = {Dwarf, Elf, Human};
-        private int[] occupationArray = {Wizard, Rogue, Fighter};
+        private int[] raceArray = {"Dwarf", "Elf", "Human"};
+        private int[] occupationArray = {"Wizard", "Rogue", "Fighter"};
         private String stats="Character Stats\n";
                 + "Strength: " + this.strength + "\n";
                 + "Dexterity: " + this.dexterity + "\n";
