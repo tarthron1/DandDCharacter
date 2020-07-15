@@ -10,4 +10,9 @@ public class Main {
 
 
     }
+    void generateStats(){
+
+    }
+
+
 }

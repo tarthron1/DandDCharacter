@@ -1,6 +1,6 @@
 package cit260;
 
-public class Hero {
+public abstract class Hero {
     private int strength;
     private int dexterity;
     private int constitution;
