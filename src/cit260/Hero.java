@@ -55,5 +55,6 @@ public abstract class Hero {
                 + "Charisma: " + this.getCharisma() + "\n";
         return stats;
     }
+    public void adjustStats() {}
 
 }
