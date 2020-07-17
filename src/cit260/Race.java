@@ -1,6 +1,4 @@
 package cit260;
 
-public interface Race extends ChangesBaseStats {
-    @Override
-    void adjustStats();
+public enum Race {ELF, DWARF, HUMAN
 }

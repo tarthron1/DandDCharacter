@@ -7,7 +7,6 @@ public abstract class Hero {
     private int intelligence;
     private int wisdom;
     private int charisma;
-    private int occupationClass;
 
     public Hero(){
         this.strength = 0;
@@ -16,17 +15,15 @@ public abstract class Hero {
         this.intelligence = 0;
         this.wisdom = 0;
         this.charisma = 0;
-        this.occupationClass = 0;
     }
 
-    public Hero(int strength, int dexterity, int constitution, int intelligence, int wisdom, int charisma, int occupationClass){
+    public Hero(int strength, int dexterity, int constitution, int intelligence, int wisdom, int charisma){
         this.strength = strength;
         this.dexterity = dexterity;
         this.constitution = constitution;
         this.intelligence = intelligence;
         this.wisdom = wisdom;
         this.charisma = charisma;
-        this.occupationClass = occupationClass;
     }
 
     public void setStrength(int str){ this.strength=str; }
@@ -35,24 +32,20 @@ public abstract class Hero {
     public void setIntelligence(int intel){ this.intelligence=intel; }
     public void setWisdom(int wis){ this.wisdom=wis; }
     public void setCharisma(int chari){ this.charisma=chari; }
-    public void setOccupationClass(int occupation){ this.occupationClass=occupation; }
     public int getStrength(){ return this.strength; }
     public int getDexterity(){ return this.dexterity; }
     public int getConstitution(){ return this.constitution; }
     public int getIntelligence(){ return this.intelligence; }
     public int getWisdom(){ return this.wisdom; }
     public int getCharisma() { return this.charisma; }
-    public int getOccupationClass(){ return this.occupationClass; }
     public String getStats(){
-        String[] occupationArray = {"Wizard", "Rogue", "Fighter"};
         String stats="Character Stats\n"
                 + "Strength: " + this.strength + "\n"
                 + "Dexterity: " + this.dexterity + "\n"
                 + "Constitution: " + this.constitution + "\n"
                 + "Intelligence: " + this.intelligence + "\n"
                 + "Wisdom: " + this.wisdom + "\n"
-                + "Charisma: " + this.charisma + "\n"
-                + "Class: " + occupationArray[this.occupationClass] + "\n";
+                + "Charisma: " + this.charisma + "\n";
         return stats;
     }
 
