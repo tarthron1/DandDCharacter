@@ -1,15 +1,25 @@
 package cit260;
 
 public class SkilledPlayer extends Player{
+    /**
+     *
+     */
     private Skill skill;
+
+    public SkilledPlayer(Race race, Skill skill) {
+        super(race);
+        this.skill = skill;
+    }
 
     @Override
     public int getStrength() {
+        // if fighter super.getStrength + 1
         return super.getStrength();
     }
 
     @Override
     public int getDexterity() {
+        // if rogue super.getStrength + 1
         return super.getDexterity();
     }
 
@@ -20,6 +30,7 @@ public class SkilledPlayer extends Player{
 
     @Override
     public int getIntelligence() {
+        // if wizard super.getIntelligence + 1
         return super.getIntelligence();
     }
 
@@ -31,5 +42,10 @@ public class SkilledPlayer extends Player{
     @Override
     public int getCharisma() {
         return super.getCharisma();
+    }
+
+    @Override
+    public String getStats() {
+        return super.getStats();
     }
 }
