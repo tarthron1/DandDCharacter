@@ -1,7 +1,10 @@
 package cit260;
 
 import javax.swing.*;
+import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Scanner;
@@ -19,10 +22,10 @@ public class Main {
         String personName = "";
         boolean responseCheck;
         Scanner input = new Scanner(System.in);
-        ArrayList<Object> skilledPlayers = new ArrayList<>();
+        ArrayList<Hero> skilledPlayers = new ArrayList<>();
         String[] statList = {"Strength","Dexterity","Constitution","Intelligence","Wisdom","Charisma"};
         int[] statInts = new int[6];
-        int[] diceInts;
+        int[] diceInts = new int[6];
         boolean[] diceSet = new boolean[6];
         /*
         // Prompt user: Display a previous team or create a new adventure party
@@ -38,6 +41,7 @@ public class Main {
             }
             catch (Exception IOException){
                 System.out.println("Invalid response type.");
+                input.next();
             }
         } while (responseCheck);
         /*
@@ -54,6 +58,7 @@ public class Main {
             System.out.println("Display previous team.");
         }else {
             System.out.println("------------------------------------------------------------\nRemember to choose your answers out of the provided options.\n------------------------------------------------------------");
+        }
         /*
 
         // If creating new party, prompt for a number of party members
@@ -70,6 +75,7 @@ public class Main {
                 }
                 catch (Exception IOException){
                     System.out.println("Invalid response type.");
+                    input.next();
                 }
             }while(responseCheck);
             /*
@@ -162,8 +168,24 @@ public class Main {
                     statInts[a]=0;
                     diceSet[a]=true;
                 }
-                Dice dice = new Dice(6,12);
-                diceInts = dice.rollForIndividualValues();
+
+                //generate the base stats by getting the sum of the highest rolls of 4 six sided dice.
+                Dice dice = new Dice(4 ,6);
+                for (int i = 0; i < 6; i++) {
+                    int[] fourDice = dice.rollForIndividualValues();
+                    double lowestRoll = Double.POSITIVE_INFINITY;
+                    int sumOfHighestThree =0;
+                    for (int roll : fourDice
+                    ) {
+                        if (roll < lowestRoll) {
+                            lowestRoll = roll;
+                        }
+                        sumOfHighestThree +=  roll;
+                    }
+                     sumOfHighestThree -= lowestRoll;
+                    diceInts[i] = sumOfHighestThree;
+                }
+
                 for(int i=0; i<5; i++) {
                     responseCheck = true;
                     do{
@@ -218,9 +240,21 @@ public class Main {
                 25. display text on screen to show off generated party
                 26. export resulting text to text file
          */
+        File file = new File(partyName + ".txt");
+        try (PrintWriter fileOutput = new PrintWriter(file)){
+            for (Hero skilledPlayer: skilledPlayers
+                 ) {
+                fileOutput.println(skilledPlayer.getStats());
+            }
+
+        } catch (FileNotFoundException e) {
+            System.out.println("Error opening file: "+ e.getMessage());
+            e.printStackTrace();
+            return;
+        }
 
         }
-    }
+
     void generateStats(){
 
     }
