@@ -44,8 +44,12 @@ public class SkilledPlayer extends Player{
         return super.getCharisma();
     }
 
+    public Skill getSkill() {
+        return this.skill;
+    }
+
     @Override
     public String getStats() {
-        return super.getStats();
+        return super.getStats()+"\nClass: "+this.getSkill();
     }
 }

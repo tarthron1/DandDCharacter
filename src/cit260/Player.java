@@ -45,8 +45,12 @@ public abstract class Player extends Hero{
         return super.getCharisma();
     }
 
+    public Race getRace() {
+        return this.race;
+    }
+
     @Override
     public String getStats() {
-        return super.getStats();
+        return super.getStats()+"Race: "+this.getRace();
     }
 }
