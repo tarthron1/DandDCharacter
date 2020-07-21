@@ -16,14 +16,14 @@ public class Main {
         int partySize = 0;
         int raceCode = 0;
         int skillCode = 0;
-        Race useRace=Race.HUMAN;
-        Skill useSkill=Skill.WIZARD;
+        Race useRace = Race.HUMAN;
+        Skill useSkill = Skill.WIZARD;
         String partyName = "";
         String personName = "";
         boolean responseCheck;
         Scanner input = new Scanner(System.in);
         ArrayList<Hero> skilledPlayers = new ArrayList<>();
-        String[] statList = {"Strength","Dexterity","Constitution","Intelligence","Wisdom","Charisma"};
+        String[] statList = {"Strength", "Dexterity", "Constitution", "Intelligence", "Wisdom", "Charisma"};
         int[] statInts = new int[6];
         int[] diceInts = new int[6];
         boolean[] diceSet = new boolean[6];
@@ -36,10 +36,9 @@ public class Main {
             try {
                 System.out.println("Would you like to (1) display a previously formed party or (2) form a new adventure party?");
                 intResponse = input.nextInt();
-                if(intResponse == 1 || intResponse == 2) responseCheck=false;
+                if (intResponse == 1 || intResponse == 2) responseCheck = false;
                 else System.out.println("Answer must be either 1 or 2. Try again.");
-            }
-            catch (Exception IOException){
+            } catch (Exception IOException) {
                 System.out.println("Invalid response type.");
                 input.next();
             }
@@ -54,30 +53,50 @@ public class Main {
                 6. read text file and display for the user
                 7. end program
                 */
-        if(intResponse == 1){
-            System.out.println("Display previous team.");
-        }else {
+        if (intResponse == 1) {
+            System.out.println("Displaying previous team.\n");
+            String teamName;
+            responseCheck=true;
+            do {
+                try {
+                    input = new Scanner(System.in);
+                    System.out.println("Enter the name of the team you wish to view:");
+                    teamName = input.nextLine();
+                    File partyFile = new File(teamName + ".txt");
+                    if (!partyFile.exists()) {
+                        System.out.println("There is no file matching that team name.");
+                    } else {
+                        responseCheck = false;
+                        Scanner input2 = new Scanner(partyFile);
+                        while (input2.hasNext()){
+                            System.out.println(input2.nextLine());
+                        }
+                    }
+                } catch (Exception IOException) {
+                    System.out.println("Invalid response type.");
+                }
+            } while (responseCheck);
+
+        } else {
             System.out.println("------------------------------------------------------------\nRemember to choose your answers out of the provided options.\n------------------------------------------------------------");
-        }
         /*
 
         // If creating new party, prompt for a number of party members
         8. If "2", ask how many party members to create
         */
-            responseCheck=true;
-            do{
+            responseCheck = true;
+            do {
                 try {
                     input = new Scanner(System.in);
                     System.out.println("How many party members would you like to generate?");
                     partySize = input.nextInt();
                     if (partySize > 0) responseCheck = false;
                     else System.out.println("Party must have at least one party member.");
-                }
-                catch (Exception IOException){
+                } catch (Exception IOException) {
                     System.out.println("Invalid response type.");
                     input.next();
                 }
-            }while(responseCheck);
+            } while (responseCheck);
             /*
                 9. Ask the name they would like to call the team
             */
@@ -88,8 +107,8 @@ public class Main {
                 // Loop once for each party member:
                 10. Loop through characrer creation once for each intended party member
                 */
-            for(int person = 1; person <= partySize; person++) {
-                System.out.println("Character #"+(skilledPlayers.size() + 1));
+            for (int person = 1; person <= partySize; person++) {
+                System.out.println("Character #" + (skilledPlayers.size() + 1));
             /*
                 // Select a race
                 // generate random numbers and assign to stats
@@ -107,88 +126,86 @@ public class Main {
                     21. set name of character
                     22. add character to an object array of the team members
                 */
-                responseCheck=true;
+                responseCheck = true;
                 // select a race
-                do{
+                do {
                     try {
                         input = new Scanner(System.in);
                         System.out.println("What race do you want this character to be? (1=Elf, 2=Dwarf, 3=Human)");
                         raceCode = input.nextInt();
-                        switch (raceCode){
+                        switch (raceCode) {
                             case 1:
                                 useRace = Race.ELF;
-                                responseCheck=false;
+                                responseCheck = false;
                                 break;
                             case 2:
                                 useRace = Race.DWARF;
-                                responseCheck=false;
+                                responseCheck = false;
                                 break;
                             case 3:
                                 useRace = Race.HUMAN;
-                                responseCheck=false;
+                                responseCheck = false;
                                 break;
                             default:
                                 System.out.println("Not an option.");
                         }
-                    }
-                    catch (Exception IOException){
+                    } catch (Exception IOException) {
                         System.out.println("Invalid response type.");
                     }
-                }while(responseCheck);
-                responseCheck=true;
+                } while (responseCheck);
+                responseCheck = true;
                 // select a skill
-                do{
+                do {
                     try {
                         input = new Scanner(System.in);
                         System.out.println("What class do you want this character to be? (1=Wizard, 2=Rogue, 3=Fighter)");
                         skillCode = input.nextInt();
-                        switch (skillCode){
+                        switch (skillCode) {
                             case 1:
                                 useSkill = Skill.WIZARD;
-                                responseCheck=false;
+                                responseCheck = false;
                                 break;
                             case 2:
                                 useSkill = Skill.ROGUE;
-                                responseCheck=false;
+                                responseCheck = false;
                                 break;
                             case 3:
                                 useSkill = Skill.FIGHTER;
-                                responseCheck=false;
+                                responseCheck = false;
                                 break;
                             default:
                                 System.out.println("Not an option.");
                         }
-                    }
-                    catch (Exception IOException){
+                    } catch (Exception IOException) {
                         System.out.println("Invalid response type.");
                     }
-                }while(responseCheck);
+                } while (responseCheck);
                 // Set stats
-                for(int a = 0; a < 6; a++){
-                    statInts[a]=0;
-                    diceSet[a]=true;
+                for (int a = 0; a < 6; a++) {
+                    statInts[a] = 0;
+                    diceSet[a] = true;
                 }
 
                 //generate the base stats by getting the sum of the highest rolls of 4 six sided dice.
-                Dice dice = new Dice(4 ,6);
+                Dice dice = new Dice(4, 6);
                 for (int i = 0; i < 6; i++) {
                     int[] fourDice = dice.rollForIndividualValues();
                     double lowestRoll = Double.POSITIVE_INFINITY;
-                    int sumOfHighestThree =0;
+                    int sumOfHighestThree = 0;
                     for (int roll : fourDice
                     ) {
                         if (roll < lowestRoll) {
                             lowestRoll = roll;
                         }
-                        sumOfHighestThree +=  roll;
+                        sumOfHighestThree += roll;
                     }
-                     sumOfHighestThree -= lowestRoll;
+                    sumOfHighestThree -= lowestRoll;
                     diceInts[i] = sumOfHighestThree;
                 }
 
-                for(int i=0; i<5; i++) {
+                for (int i = 0; i < 5; i++) {
                     responseCheck = true;
-                    do{
+                    do {
                         try {
                             input = new Scanner(System.in);
                             System.out.println("Dice values that have not yet been assigned:");
@@ -197,25 +214,24 @@ public class Main {
                             }
                             System.out.println("Stats that have not yet been set:");
                             for (int j = 0; j < 6; j++) {
-                                if (statInts[j] == 0) System.out.println((1+j) + " = " + statList[j]);
+                                if (statInts[j] == 0) System.out.println((1 + j) + " = " + statList[j]);
                             }
                             System.out.println("To which stat would you like to assign this die value? [ " + diceInts[i] + " ]");
-                            intResponse = (input.nextInt())-1;
-                            if(intResponse < 0 || intResponse > 5 || statInts[intResponse]>0){
+                            intResponse = (input.nextInt()) - 1;
+                            if (intResponse < 0 || intResponse > 5 || statInts[intResponse] > 0) {
                                 System.out.println("Invalid response value.");
-                            }else{
-                                responseCheck=false;
-                                statInts[intResponse]=diceInts[i];
-                                diceSet[i]=false;
+                            } else {
+                                responseCheck = false;
+                                statInts[intResponse] = diceInts[i];
+                                diceSet[i] = false;
                             }
-                        }
-                        catch (Exception IOException){
+                        } catch (Exception IOException) {
                             System.out.println("Invalid response type.");
                         }
-                    }while(responseCheck);
+                    } while (responseCheck);
                 }
                 for (int j = 0; j < 6; j++) {
-                    if(statInts[j] == 0)
+                    if (statInts[j] == 0)
                         statInts[j] = diceInts[5];
                 }
 
@@ -223,7 +239,7 @@ public class Main {
                 input = new Scanner(System.in);
                 System.out.println("What do you want to name this character?");
                 personName = input.nextLine();
-                SkilledPlayer templayer=new SkilledPlayer(useRace, useSkill);
+                SkilledPlayer templayer = new SkilledPlayer(useRace, useSkill);
                 templayer.setName(personName);
                 templayer.setStrength(statInts[0]);
                 templayer.setDexterity(statInts[1]);
@@ -240,20 +256,21 @@ public class Main {
                 25. display text on screen to show off generated party
                 26. export resulting text to text file
          */
-        File file = new File(partyName + ".txt");
-        try (PrintWriter fileOutput = new PrintWriter(file)){
-            for (Hero skilledPlayer: skilledPlayers
-                 ) {
-                fileOutput.println(skilledPlayer.getStats());
+            File file = new File(partyName + ".txt");
+            try (PrintWriter fileOutput = new PrintWriter(file)) {
+                for (Hero skilledPlayer : skilledPlayers
+                ) {
+                    fileOutput.println(skilledPlayer.getStats());
+                }
+
+            } catch (FileNotFoundException e) {
+                System.out.println("Error opening file: " + e.getMessage());
+                e.printStackTrace();
+                return;
             }
 
-        } catch (FileNotFoundException e) {
-            System.out.println("Error opening file: "+ e.getMessage());
-            e.printStackTrace();
-            return;
         }
-
-        }
+    }
 
     void generateStats(){
 
