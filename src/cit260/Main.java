@@ -1,32 +1,35 @@
 package cit260;
 
-import javax.swing.*;
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.io.IOException;
 import java.io.PrintWriter;
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Main {
 
     public static void main(String[] args) {
+        //The following variables are used anytime a response is required from the user.
         int intResponse = 0;
+        boolean responseCheck;
+
+        //These variables are used for party and character creation.
         int partySize = 0;
-        int raceCode = 0;
-        int skillCode = 0;
+        int raceCode;
+        int skillCode;
+        String partyName;
+        String personName;
+        //Default values that will be overwritten during character creation.
         Race useRace = Race.HUMAN;
         Skill useSkill = Skill.WIZARD;
-        String partyName = "";
-        String personName = "";
-        boolean responseCheck;
+
         Scanner input = new Scanner(System.in);
         ArrayList<Hero> skilledPlayers = new ArrayList<>();
         String[] statList = {"Strength", "Dexterity", "Constitution", "Intelligence", "Wisdom", "Charisma"};
         int[] statInts = new int[6];
         int[] diceInts = new int[6];
         boolean[] diceSet = new boolean[6];
+
         /*
         // Prompt user: Display a previous team or create a new adventure party
         1. Ask user if they want to(1) display a team already created or (2) create a new team
@@ -43,16 +46,16 @@ public class Main {
                 input.next();
             }
         } while (responseCheck);
-        /*
 
+        /*
         // If opening previous team, find file and display party stats.
-        2. verify that user input is either 1 or 2.
-        3. If "1", ask the party name they wish to view
+                2. verify that user input is either 1 or 2.
+                 3. If "1", ask the party name they wish to view
                 4. Verify that a file matching user input exists
                 5. open file indicated
                 6. read text file and display for the user
                 7. end program
-                */
+         */
         if (intResponse == 1) {
             System.out.println("Displaying previous team.\n");
             String teamName;
@@ -67,10 +70,12 @@ public class Main {
                         System.out.println("There is no file matching that team name.");
                     } else {
                         responseCheck = false;
-                        Scanner input2 = new Scanner(partyFile);
-                        while (input2.hasNext()){
-                            System.out.println(input2.nextLine());
+                        Scanner partyScanner = new Scanner(partyFile);
+                        while (partyScanner.hasNext()){
+                            System.out.println(partyScanner.nextLine());
                         }
+                        partyScanner.close();
+                        input.close();
                     }
                 } catch (Exception IOException) {
                     System.out.println("Invalid response type.");
@@ -87,7 +92,6 @@ public class Main {
             responseCheck = true;
             do {
                 try {
-                    input = new Scanner(System.in);
                     System.out.println("How many party members would you like to generate?");
                     partySize = input.nextInt();
                     if (partySize > 0) responseCheck = false;
@@ -100,15 +104,16 @@ public class Main {
             /*
                 9. Ask the name they would like to call the team
             */
-            input = new Scanner(System.in);
             System.out.println("What do you want to call your team?");
             partyName = input.nextLine();
             /*
                 // Loop once for each party member:
-                10. Loop through characrer creation once for each intended party member
+                10. Loop through character creation once for each intended party member
                 */
             for (int person = 1; person <= partySize; person++) {
                 System.out.println("Character #" + (skilledPlayers.size() + 1));
+
+
             /*
                 // Select a race
                 // generate random numbers and assign to stats
@@ -118,19 +123,19 @@ public class Main {
                     13. verify answer is 1, 2, or 3
                     14. use dice class to generate a sequence of random numbers
                     15. cycle six times to prompt user to assign each number to a trait
-                        16. display unassigned numbers and ask which one they want to assign to a given trait
-                        17. verify that the given number is valid
-                        18. assign the value to the given trait
-                        19. remove the value from the remaining value
+                    16. display unassigned numbers and ask which one they want to assign to a given trait
+                    17. verify that the given number is valid
+                    18. assign the value to the given trait
+                    19. remove the value from the remaining value
                     20. prompt user for a character name
                     21. set name of character
                     22. add character to an object array of the team members
                 */
                 responseCheck = true;
+
                 // select a race
                 do {
                     try {
-                        input = new Scanner(System.in);
                         System.out.println("What race do you want this character to be? (1=Elf, 2=Dwarf, 3=Human)");
                         raceCode = input.nextInt();
                         switch (raceCode) {
@@ -154,10 +159,10 @@ public class Main {
                     }
                 } while (responseCheck);
                 responseCheck = true;
+
                 // select a skill
                 do {
                     try {
-                        input = new Scanner(System.in);
                         System.out.println("What class do you want this character to be? (1=Wizard, 2=Rogue, 3=Fighter)");
                         skillCode = input.nextInt();
                         switch (skillCode) {
@@ -207,7 +212,6 @@ public class Main {
                     responseCheck = true;
                     do {
                         try {
-                            input = new Scanner(System.in);
                             System.out.println("Dice values that have not yet been assigned:");
                             for (int j = 0; j < 6; j++) {
                                 if (diceSet[j]) System.out.print(diceInts[j] + " ");
@@ -236,19 +240,18 @@ public class Main {
                 }
 
                 System.out.println("");
-                input = new Scanner(System.in);
                 System.out.println("What do you want to name this character?");
                 personName = input.nextLine();
-                SkilledPlayer templayer = new SkilledPlayer(useRace, useSkill);
-                templayer.setName(personName);
-                templayer.setStrength(statInts[0]);
-                templayer.setDexterity(statInts[1]);
-                templayer.setConstitution(statInts[2]);
-                templayer.setIntelligence(statInts[3]);
-                templayer.setWisdom(statInts[4]);
-                templayer.setCharisma(statInts[5]);
-                skilledPlayers.add(templayer);
-                System.out.println(templayer.getStats());
+                SkilledPlayer tempPlayer = new SkilledPlayer(useRace, useSkill);
+                tempPlayer.setName(personName);
+                tempPlayer.setStrength(statInts[0]);
+                tempPlayer.setDexterity(statInts[1]);
+                tempPlayer.setConstitution(statInts[2]);
+                tempPlayer.setIntelligence(statInts[3]);
+                tempPlayer.setWisdom(statInts[4]);
+                tempPlayer.setCharisma(statInts[5]);
+                skilledPlayers.add(tempPlayer);
+                System.out.println(tempPlayer.getStats());
             }
             /*
                 23. generate a text file with the given party name
@@ -267,14 +270,10 @@ public class Main {
                 System.out.println("Error opening file: " + e.getMessage());
                 e.printStackTrace();
                 return;
+            } finally {
+                input.close();
             }
 
         }
     }
-
-    void generateStats(){
-
-    }
-
-
 }

@@ -40,7 +40,7 @@ public class SkilledPlayer extends Player{
     public int getIntelligence() {
         if(this.skill == Skill.WIZARD){
             // if fighter super.getIntelligence + 1
-            return super.getIntelligence()+1;
+            return super.getIntelligence() + 1;
         } else {
             return super.getIntelligence();
         }
